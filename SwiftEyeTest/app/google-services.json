@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "942740773642",
+    "project_id": "swifteye-1210"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:942740773642:android:a2b9e191a806baae",
+        "android_client_info": {
+          "package_name": "com.example.jaianshu.swifteyetest"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvpybDzl5Lq3C52h1-rGXQGTL9Fj3PvxQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
