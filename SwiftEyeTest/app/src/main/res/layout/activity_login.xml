@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:theme="@style/AppTheme"
+    android:background="#7891d9"
+    android:backgroundTint="#5b3a3a"
+    android:backgroundTintMode="add"
+    android:baselineAligned="false"
+    >
+
+
+    <EditText
+        android:hint="Username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/etUserName"
+        android:layout_margin="10dp"
+        />
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:id="@+id/etPassword"
+        android:layout_margin="10dp"
+        />
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:id="@+id/btnLogin"
+        android:layout_margin="10dp"
+        />
+
+    <ImageView  xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/logoView"
+        android:layout_height="250dp"
+        android:layout_width="250dp"
+        android:layout_margin="10dp"
+        android:layout_gravity="center_horizontal" />
+
+
+</LinearLayout>

@@ -10,10 +10,12 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,8 +44,10 @@ public class MotionActivity extends Activity {
     Bitmap motionbmp;
     String [] imagesList = {};
     int count=0;
+    Spinner dynamicSpinner;
     String main_path = "http://52.35.20.220/rpi/motion_pics/";
     String path = main_path;
+    String TAG = "Motion Activity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,14 +61,30 @@ public class MotionActivity extends Activity {
         dialog.setTitle("Hour Of Day");
         dialog.setCancelable(false);
         dialog.setCanceledOnTouchOutside(false);
-        txthourofday = (EditText)dialog.findViewById(R.id.txthourofday);
+//        txthourofday = (EditText)dialog.findViewById(R.id.txthourofday);
         dialogButton = (Button) dialog.findViewById(R.id.btnsettime);
+        dynamicSpinner = (Spinner) dialog.findViewById(R.id.timespinner);
+        ArrayAdapter adapter = ArrayAdapter.createFromResource(this,R.array.time_array,android.R.layout.simple_spinner_item);
+        dynamicSpinner.setAdapter(adapter);
+
         // if button is clicked, close the custom dialog
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),txthourofday.getText().toString() , Toast.LENGTH_SHORT).show();
-                path=path+txthourofday.getText().toString()+"/";
+                String subdir ="";
+                int n = dynamicSpinner.getSelectedItemPosition();
+                String item = dynamicSpinner.getSelectedItem().toString();
+                Log.i(TAG,"selected = "  + n +"  : " + item );
+//                Toast.makeText(getApplicationContext(),txthourofday.getText().toString() , Toast.LENGTH_SHORT).show();
+//                path=path+txthourofday.getText().toString()+"/";
+                  if(n<10){
+                      subdir = "0" + (n);
+                  }
+                  else{
+                      subdir = ""+ (n);
+                  }
+                  path=path+ subdir +"/";
+                Log.i(TAG, "path : " + path);
                 new Thread()
                 {
                     public void run()
@@ -78,7 +98,9 @@ public class MotionActivity extends Activity {
                         }
                         catch (NullPointerException n)
                         {
+
                             Log.i(MainActivity.TAG,"Null Exception");
+                            displayExceptionMessage();
                         }
 //                Log.i(MainActivity.TAG,"image lst :"+ imagesList[0] + imagesList[1] + imagesList[2] + "size" + imagesList.length);
                         count = imagesList.length-1;
@@ -103,6 +125,14 @@ public class MotionActivity extends Activity {
         });
     }
 
+    public void displayExceptionMessage(){
+        MotionActivity.this.runOnUiThread(new Runnable() {
+            public void run() {
+                motionimage.setImageResource(R.drawable.noimagefound);
+//                Toast.makeText(getApplicationContext(),"No Pics taken in this time period." , Toast.LENGTH_LONG).show();
+            }
+        });
+    }
     private String [] processValue(String result)
     {
         Log.i(MainActivity.TAG, result);

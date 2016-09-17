@@ -1,29 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/background_light"
+    android:theme="@style/AppTheme"
+    >
 
-    <LinearLayout
+    <RelativeLayout
         android:orientation="horizontal" android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        >
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select Hour of Day"
+        android:text="Select Hour of Day :"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/HourTxt"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="20sp" />
+
+    <!--<EditText-->
+        <!--android:layout_marginLeft="10dp"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/txthourofday"-->
+        <!--android:layout_gravity="center_horizontal" />-->
+
+    <Spinner
+        style="@android:style/TextAppearance.DeviceDefault"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/timespinner"
+        android:layout_toRightOf="@+id/HourTxt"
+        android:layout_marginLeft="5dip"
+
         />
 
-    <EditText
-        android:layout_marginLeft="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/txthourofday"
-        android:layout_gravity="center_horizontal" />
-</LinearLayout>
+</RelativeLayout>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="OK"
-        android:id="@+id/btnsettime" />
+        android:id="@+id/btnsettime"
+        android:layout_gravity="right"
+        android:layout_marginTop="50dp"
+        />
 
 </LinearLayout>

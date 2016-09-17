@@ -1,3 +1,30 @@
 <resources>
-    <string name="app_name">SwiftEyeTest</string>
+    <string name="app_name">SwiftEye</string>
+    <string name="index">Index</string>
+    <string-array name="time_array">
+        <item>00-01 AM</item>
+        <item>01-02 AM</item>
+        <item>02-03 AM</item>
+        <item>03-04 AM</item>
+        <item>04-05 AM</item>
+        <item>05-06 AM</item>
+        <item>06-07 AM</item>
+        <item>07-08 AM</item>
+        <item>08-09 AM</item>
+        <item>09-10 AM</item>
+        <item>10-11 AM</item>
+        <item>11-12 AM</item>
+        <item>12-01 PM</item>
+        <item>01-02 PM</item>
+        <item>02-03 PM</item>
+        <item>03-04 PM</item>
+        <item>04-05 PM</item>
+        <item>05-06 PM</item>
+        <item>06-07 PM</item>
+        <item>07-08 PM</item>
+        <item>08-09 PM</item>
+        <item>09-10 PM</item>
+        <item>10-11 PM</item>
+        <item>11-12 PM</item>
+    </string-array>
 </resources>

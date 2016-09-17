@@ -5,13 +5,13 @@
         android:id="@+id/action_settings"
         android:icon="@drawable/settings"
         android:title="Settings"
-        app:showAsAction="always"  />
+        app:showAsAction="never"  />
 
     <item
         android:id="@+id/action_live"
         android:icon="@drawable/settings"
-        android:title="Live!!!"
-        app:showAsAction="always"  />
+        android:title="Live Storage"
+        app:showAsAction="never"  />
 
     <item
         android:id="@+id/help"
@@ -20,6 +20,10 @@
     <item
         android:id="@+id/contact"
         android:title="Contact Us"
+        app:showAsAction="never"  />
+    <item
+        android:id="@+id/logout"
+        android:title="Logout"
         app:showAsAction="never"  />
 
 </menu>

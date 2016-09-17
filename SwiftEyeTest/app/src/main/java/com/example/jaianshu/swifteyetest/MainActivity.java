@@ -1,7 +1,7 @@
 package com.example.jaianshu.swifteyetest;
 
-import android.app.ActionBar;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -12,7 +12,6 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -46,22 +45,26 @@ import java.util.regex.Pattern;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
-import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
 
 
 public class MainActivity extends Activity  implements View.OnClickListener
 {
+
+    //    Intent intent = new Intent(this, LoginActivity.class);
+//    @Override
+//    public void startActivity(Intent intent) {
+//        super.startActivity(intent);
+//    }
     SharedPreferences pref; //Stores your application preferences
     SharedPreferences.Editor editor;
     Button nextImage, prevImage, tempBtn, humidityBtn, cameraBtn, burstBtn, moveLeftBtn, moveRightBtn, moveCenterBtn,saveBtn,motionBtn;
     ImageView image;
     Bitmap bmp;
+    Dialog dialogContact;
     TextView txtTemp,txtHumid;
     int count=0;
     static boolean motionFlag=false;
@@ -77,6 +80,7 @@ public class MainActivity extends Activity  implements View.OnClickListener
 //    TouchImageView img = (TouchImageView) findViewById(R.id.img);
 
 
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -90,9 +94,7 @@ public class MainActivity extends Activity  implements View.OnClickListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i(TAG,"11111");
         setContentView(R.layout.activity_main);
-        Log.i(TAG,"333333333");
         txtTemp = (TextView)findViewById(R.id.txtTemperature);
         txtHumid = (TextView)findViewById(R.id.txtHumidity);
         prevImage = (Button)findViewById(R.id.prevImageBtn);
@@ -126,6 +128,9 @@ public class MainActivity extends Activity  implements View.OnClickListener
         pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
         editor=pref.edit();
 
+
+        boolean ftc = first_time_check();
+        initializeImageView();
         /*ActionBar actionBar = getActionBar();
         actionBar.show();*/
         //Initializing our broadcast receiver
@@ -257,10 +262,23 @@ public class MainActivity extends Activity  implements View.OnClickListener
     }
 
     //Registering receiver on activity resume
+    private boolean first_time_check() {
+        SharedPreferences sp = getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
+        String first = sp.getString("entered_username", null);
+        if((first == null)){
+            Intent i = new Intent(this, LoginActivity.class);
+            startActivity(i);
+        }
+        return false;
+    }
+    public void initializeImageView(){
+        image.setImageResource(R.drawable.wait);
+    }
     @Override
     protected void onResume() {
         super.onResume();
         Log.w("MainActivity", "onResume");
+        first_time_check();
         LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
                 new IntentFilter(GCMRegistrationIntentService.REGISTRATION_SUCCESS));
         LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
@@ -638,11 +656,45 @@ public class MainActivity extends Activity  implements View.OnClickListener
                 //myIntent.putExtra("key", value); //Optional parameters
                 startActivity(myIntent);
                 break;
+            case R.id.help:
+                Intent myHelpIntent = new Intent(MainActivity.this, HelpActivity.class);
+                //myIntent.putExtra("key", value); //Optional parameters
+                startActivity(myHelpIntent);
+                break;
+            case R.id.contact:
+                openContactUsDialog();
+                break;
+            case R.id.logout:
+                Intent myLogoutIntent = new Intent(MainActivity.this, LogoutActivity.class);
+                startActivity(myLogoutIntent);
+                break;
             default:
                 break;
         }
         return true;
     }
+
+    public void openContactUsDialog() {
+        final Dialog dialog = new Dialog(this); // Context, this, etc.
+        dialog.setContentView(R.layout.dialog_contact);
+        dialog.setTitle("Contact Us");
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+        Button dialogButton = (Button) dialog.findViewById(R.id.dialog_ok);
+        // if button is clicked, close the custom dialog
+        dialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new Thread() {
+                    public void run() {
+                        dialog.dismiss();
+                    }
+                }.start();
+            }
+        });
+    }
+
 
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
